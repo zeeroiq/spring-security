@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+    <link type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet"/>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Registration form</h1>
+
+        <form id="userForm" th:action="@{/user/registration}" th:object="${user}" action="#" method="post" class="form-horizontal">
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+                <label class="control-label col-sm-2" for="email">Email</label>
+                <div class="col-sm-10">
+                    <input id="email" type="email" th:field="*{email}" />
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-block">Email Error</span>
+                </div>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+                <label class="control-label col-sm-2" for="password">Password</label>
+                <div class="col-sm-10">
+                    <input id="password" type="password" th:field="*{password}" />
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="help-block">Password Error</span>
+                </div>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('passwordConfirmation')} ? 'has-error'">
+                <label class="control-label col-sm-2" for="passwordConfirmation">Email</label>
+                <div class="col-sm-10">
+                    <input id="passwordConfirmation" type="password" th:field="*{passwordConfirmation}" />
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-block">Password Confirmation Error</span>
+                </div>
+            </div>
+
+            <div class="form-actions offset2 col-sm-10">
+                <input type="submit" class="btn btn-primary" value="Register"/>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>

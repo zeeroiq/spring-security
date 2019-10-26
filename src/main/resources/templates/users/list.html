@@ -8,6 +8,17 @@
 
 </head>
 <body>
+<div class="navbar">
+	<div class="navbar-inner">
+		<a class="brand" th:href="@{/}"> Home </a>
+		<ul class="nav">
+			<li><a th:href="@{/}" href="users.html"> Users </a></li>
+		</ul>
+		<ul class="nav pull-right">
+			<li><a th:href="@{/doLogout}" class="menu-right">Logout</a> </li>
+		</ul>
+	</div>
+</div>
 	<h1 layout:fragment="header">Users : View all</h1>
 	<div layout:fragment="content" class="container">
 		<div class="pull-right">
