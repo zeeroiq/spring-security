@@ -74,6 +74,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .permitAll()
                     .defaultSuccessUrl("/index", true)
+                    .usernameParameter("username")
+                    .passwordParameter("password")
 
                 .and()
                 .rememberMe()
