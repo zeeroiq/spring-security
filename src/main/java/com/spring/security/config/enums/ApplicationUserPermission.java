@@ -1,4 +1,4 @@
-package com.spring.security.config.com.spring.sercurity.entity.enums;
+package com.spring.security.config.enums;
 
 public enum ApplicationUserPermission {
 

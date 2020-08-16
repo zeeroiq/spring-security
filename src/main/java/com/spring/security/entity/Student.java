@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Student {
 
-    public Integer studentId;
-    public String username;
+    public final Integer studentId;
+    public final String username;
 }
