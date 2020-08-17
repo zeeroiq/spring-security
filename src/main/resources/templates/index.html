@@ -18,23 +18,30 @@
             background-color:#3e3e3e;
             color: white;
         }
+        .navbar-nav {
+             margin-left: auto;
+         }
     </style>
 </head>
 <body>
+
     <nav class="navbar navbar-dark bg-dark">
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <form method="get" action="/logout">
+<!--        <form class="form-inline">-->
+<!--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--        </form>-->
+        <form method="get" action="/logout" class="navbar-nav">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
         </form>
     </nav>
+
     <br>
     <br>
     <br>
-    <h1>
+
+    <h1 style="padding-left: 100px">
         Login Successful
     </h1>
+
 </body>
 </html>
