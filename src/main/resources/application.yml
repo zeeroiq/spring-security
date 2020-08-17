@@ -1,0 +1,9 @@
+logging:
+  level:
+    root: debug
+
+application:
+  jwt:
+    secretKey: securedStringToBeUsedsecuredStringToBeUsedsecuredStringToBeUsed
+    tokenPrefix: "Bearer "
+    tokenExpirationTime: 14

@@ -1,6 +1,8 @@
 package com.spring.security.config;
 
 import com.spring.security.config.DBsec.ApplicationUserDetailService;
+import com.spring.security.config.jwt.JwtConfig;
+import com.spring.security.config.jwt.JwtRequestVerifier;
 import com.spring.security.config.jwt.JwtUsernamePasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,13 +14,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.concurrent.TimeUnit;
+import javax.crypto.SecretKey;
 
-import static com.spring.security.config.enums.ApplicationUserRole.*;
+import static com.spring.security.config.enums.ApplicationUserRole.STUDENT;
 
 @Configuration
 @EnableWebSecurity
@@ -28,11 +28,15 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
     public final PasswordEncoder passwordEncoder;
     public final ApplicationUserDetailService applicationUserDetailServiceImplementation;
+    private final JwtConfig jwtConfig;
+    private final SecretKey jwtSecretKey;
 
     @Autowired
-    public WebConfig(PasswordEncoder passwordEncoder, ApplicationUserDetailService applicationUserDetailServiceImplementation) {
+    public WebConfig(PasswordEncoder passwordEncoder, ApplicationUserDetailService applicationUserDetailServiceImplementation, JwtConfig jwtConfig, SecretKey jwtSecretKey) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserDetailServiceImplementation = applicationUserDetailServiceImplementation;
+        this.jwtConfig = jwtConfig;
+        this.jwtSecretKey = jwtSecretKey;
     }
 
     @Override
@@ -42,13 +46,14 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernamePasswordAuthenticationFilter(authenticationManager()))
-                .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/api/**")
-                .hasRole(STUDENT.name())
-                .anyRequest()
-                .authenticated();
+                    .addFilter(new JwtUsernamePasswordAuthenticationFilter(authenticationManager(), jwtConfig, jwtSecretKey))
+                    .addFilterAfter(new JwtRequestVerifier(jwtSecretKey, jwtConfig), JwtUsernamePasswordAuthenticationFilter.class)
+                    .authorizeRequests()
+                    .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+                    .antMatchers("/api/**")
+                    .hasRole(STUDENT.name())
+                    .anyRequest()
+                    .authenticated();
     }
 
     @Override
