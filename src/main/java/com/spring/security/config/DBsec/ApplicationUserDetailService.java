@@ -13,7 +13,7 @@ public class ApplicationUserDetailService implements UserDetailsService {
 
     private final ApplicationUserDAO applicationUserDAO;
 
-    public ApplicationUserDetailService(FakeApplicationUserDAOImpl applicationUserDAO) {
+    public ApplicationUserDetailService(@Qualifier("fake") ApplicationUserDAO applicationUserDAO) {
         log.debug(">>>>> FAKE APPLICATION USER DAO IS USED : " + applicationUserDAO.getClass().getName());
         this.applicationUserDAO = applicationUserDAO;
     }
